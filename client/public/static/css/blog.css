@@ -50,7 +50,7 @@
 }
 
 .blog-card::before {
-    display: none;
+    /* Removed display: none to allow gradient outline */
 }
 
 .blog-image-wrapper {
@@ -60,7 +60,7 @@
     position: relative;
     z-index: 2;
     border-radius: 20px;
-    background: linear-gradient(135deg, rgba(30, 40, 100, 0.7) 0%, rgba(20, 30, 80, 0.5) 100%);
+    background: linear-gradient(180deg, var(--card-gradient-start) 0%, rgba(25, 30, 65, 0.6) 50%, var(--card-gradient-end) 100%);
     backdrop-filter: blur(10px);
     border: none;
     padding: 20px;

@@ -60,7 +60,7 @@
 }
 
 .tech-card::after {
-    display: none;
+    /* Removed display: none to allow gradient outline */
 }
 
 .tech-card::before {
@@ -90,7 +90,7 @@
     width: 100px;
     height: 100px;
     background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-    border-radius: 18px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;

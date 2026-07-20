@@ -33,11 +33,11 @@
 }
 
 .contact-wrapper {
-    background: linear-gradient(135deg, rgba(30, 40, 100, 0.5) 0%, rgba(20, 30, 80, 0.3) 100%);
+    background: linear-gradient(180deg, var(--card-gradient-start) 0%, rgba(25, 30, 65, 0.6) 50%, var(--card-gradient-end) 100%);
     color: var(--text-color);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     border-radius: 24px;
     padding: 50px;
     display: grid;

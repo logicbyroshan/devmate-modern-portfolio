@@ -39,7 +39,7 @@
     width: 100%;
     max-width: 900px;
     height: 580px;
-    margin: 0 auto 60px auto;
+    margin: 0 auto 0 auto;
 }
 
 .about-image-item {
@@ -49,14 +49,14 @@
 
 /* Only center image has background */
 .about-img-3 {
-    background: linear-gradient(135deg, rgba(50, 60, 140, 0.4) 0%, rgba(30, 40, 100, 0.3) 100%);
+    background: linear-gradient(180deg, var(--card-gradient-start) 0%, rgba(25, 30, 65, 0.6) 50%, var(--card-gradient-end) 100%);
     padding: 18px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 .about-bg-text {
     position: absolute;
-    bottom: -12%;
+    bottom: -4%;
     left: 50%;
     transform: translate(-50%, 0);
     font-family: 'Orbitron', sans-serif;
@@ -83,7 +83,7 @@
 }
 
 .about-img-3:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 .about-image-item img {

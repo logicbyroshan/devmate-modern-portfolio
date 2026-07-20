@@ -8,50 +8,53 @@ function initProjectsSlider() {
     }
 
     let currentIndex = 0;
+    let isAnimating = false;
 
     function showProject(index) {
         projectCards.forEach((card, i) => {
             card.classList.remove('active');
             if (i === index) {
-                setTimeout(() => {
-                    card.classList.add('active');
-                }, 100);
+                card.classList.add('active');
             }
         });
     }
 
     function nextProject() {
+        if (isAnimating) return;
+        isAnimating = true;
+
         const oldIndex = currentIndex;
         currentIndex = (currentIndex + 1) % projectCards.length;
         
-        // Add slide out animation to current card
+        projectCards[oldIndex].classList.remove('active');
         projectCards[oldIndex].classList.add('slide-out-left');
         
+        projectCards[currentIndex].classList.add('active', 'slide-in-right');
+        
         setTimeout(() => {
-            projectCards[oldIndex].classList.remove('active', 'slide-out-left');
-            projectCards[currentIndex].classList.add('active', 'slide-in-right');
-            
-            setTimeout(() => {
-                projectCards[currentIndex].classList.remove('slide-in-right');
-            }, 600);
-        }, 300);
+            projectCards[oldIndex].classList.remove('slide-out-left');
+            projectCards[currentIndex].classList.remove('slide-in-right');
+            isAnimating = false;
+        }, 600);
     }
 
     function prevProject() {
+        if (isAnimating) return;
+        isAnimating = true;
+
         const oldIndex = currentIndex;
         currentIndex = (currentIndex - 1 + projectCards.length) % projectCards.length;
         
-        // Add slide out animation to current card
+        projectCards[oldIndex].classList.remove('active');
         projectCards[oldIndex].classList.add('slide-out-right');
         
+        projectCards[currentIndex].classList.add('active', 'slide-in-left');
+        
         setTimeout(() => {
-            projectCards[oldIndex].classList.remove('active', 'slide-out-right');
-            projectCards[currentIndex].classList.add('active', 'slide-in-left');
-            
-            setTimeout(() => {
-                projectCards[currentIndex].classList.remove('slide-in-left');
-            }, 600);
-        }, 300);
+            projectCards[oldIndex].classList.remove('slide-out-right');
+            projectCards[currentIndex].classList.remove('slide-in-left');
+            isAnimating = false;
+        }, 600);
     }
 
     // Event listeners for navigation buttons

@@ -87,23 +87,21 @@
 }
 
 .faq-item {
-    background: linear-gradient(135deg, rgba(30, 40, 100, 0.5) 0%, rgba(20, 30, 80, 0.3) 100%);
+    background: linear-gradient(180deg, var(--card-gradient-start) 0%, rgba(25, 30, 65, 0.6) 50%, var(--card-gradient-end) 100%);
     color: var(--text-color);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     border-radius: 10px;
     overflow: hidden;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .faq-item:hover {
-    border-color: rgba(124, 58, 237, 0.3);
 }
 
 .faq-item.active {
-    border-color: rgba(124, 58, 237, 0.5);
-    background: linear-gradient(135deg, rgba(40, 50, 120, 0.6) 0%, rgba(30, 40, 100, 0.4) 100%);
+    background: linear-gradient(180deg, rgba(40, 50, 120, 0.6) 0%, rgba(30, 40, 100, 0.5) 50%, var(--card-gradient-end) 100%);
 }
 
 .faq-item.faq-item-hidden {

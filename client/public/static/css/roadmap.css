@@ -119,6 +119,7 @@
     right: -10px;
     top: 30px;
     transform: rotate(45deg);
+    z-index: -1;
 }
 
 .roadmap-right .roadmap-card::after {
@@ -130,6 +131,7 @@
     left: -10px;
     top: 30px;
     transform: rotate(45deg);
+    z-index: -1;
 }
 
 .roadmap-dot {
@@ -163,12 +165,12 @@
     top: -14px;
     left: 35px;
     padding: 6px 16px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(167, 139, 250, 0.2) 100%);
-    border: 1px solid rgba(124, 58, 237, 0.4);
+    background: #e9d5ff;
+    border: 1px solid #d8b4fe;
     border-radius: 20px;
-    color: #a78bfa;
+    color: #4c1d95;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     font-family: var(--font-body);
     z-index: 1;
 }

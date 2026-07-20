@@ -103,7 +103,7 @@ body {
     overflow-x: clip;
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -378,7 +378,7 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
-    border-radius: var(--radius-lg);
+    border-radius: 50px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     border: none;
     cursor: pointer;
@@ -403,53 +403,74 @@ body {
 }
 
 .dino-icon {
-    color: #ef4444;
-    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.5));
+    color: #a78bfa;
+    filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.5));
 }
 
-.btn-primary {
+@property --btn-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes btnGlowSpin {
+    0% { --btn-angle: 0deg; }
+    100% { --btn-angle: 360deg; }
+}
+
+.btn-primary, .btn-secondary, .form-submit-btn {
     padding: 14px 28px;
-    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    background: transparent !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
     position: relative;
+    z-index: 1;
+    overflow: visible;
 }
 
-.btn-primary::before {
+/* Opaque Button Background & Static Border */
+.btn-primary::before, .btn-secondary::before, .form-submit-btn::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #8b5cf6 0%, #c4b5fd 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: var(--radius-lg);
+    inset: 0;
+    border-radius: 50px;
+    background: var(--bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: -1;
+    pointer-events: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.btn-primary:hover {
+/* Small moving flair expanding outside */
+.btn-primary::after, .btn-secondary::after, .form-submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 53px;
+    background: conic-gradient(from var(--btn-angle), transparent 0%, transparent 85%, #a78bfa 95%, #10b981 100%);
+    animation: btnGlowSpin 4s linear infinite;
+    filter: blur(4px);
+    opacity: 0.9;
+    z-index: -2;
+    pointer-events: none;
+    transition: opacity 0.3s ease, filter 0.3s ease, inset 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .form-submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
     color: #ffffff;
 }
 
-.btn-primary:hover::before {
+.btn-primary:hover::after, .btn-secondary:hover::after, .form-submit-btn:hover::after {
+    filter: blur(6px);
+    inset: -4px;
     opacity: 1;
 }
 
-.btn-primary,
-.btn-primary * {
+.btn-primary *, .btn-secondary *, .form-submit-btn * {
     position: relative;
     z-index: 1;
-}
-
-.btn-secondary {
-    padding: 14px 28px;
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-btn,
@@ -503,11 +524,7 @@ body {
     font-family: var(--font-body);
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-}
+/* Removed duplicate hover state for btn-secondary */
 
 /* Shared polish layer for visual consistency across sections */
 .nft-card,
@@ -518,8 +535,29 @@ body {
 .faq-item,
 .blog-image-wrapper {
     border-radius: var(--radius-panel-lg);
-    border: 1px solid var(--surface-border);
-    box-shadow: var(--surface-shadow);
+    border: none;
+    position: relative;
+    box-shadow: none;
+}
+
+.nft-card::before,
+.tech-card::after,
+.project-card::before,
+.roadmap-card::before,
+.contact-wrapper::before,
+.faq-item::before,
+.blog-image-wrapper::before,
+.about-img-3::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(180deg, #7c3aed 0%, rgba(167, 139, 250, 0.5) 50%, rgba(124, 58, 237, 0) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }
 
 .nft-card,
@@ -527,8 +565,10 @@ body {
 .project-card,
 .roadmap-card,
 .contact-wrapper,
-.faq-item {
-    background-image: var(--surface-soft-gradient);
+.faq-item,
+.blog-image-wrapper,
+.about-img-3 {
+    background: linear-gradient(180deg, var(--card-gradient-start) 0%, rgba(25, 30, 65, 0.6) 50%, var(--card-gradient-end) 100%);
 }
 
 .about-badge,
@@ -573,9 +613,9 @@ body {
    Hero Section
    ======================================== */
 .hero-section {
-    padding-top: 100px;
-    padding-bottom: 140px;
-    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    min-height: 90vh;
     display: flex;
     align-items: center;
 }
@@ -595,7 +635,21 @@ body {
 }
 
 .hero-content {
-    padding-top: 180px;
+    padding-top: 120px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(167, 139, 250, 0.1) 100%);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: var(--radius-pill);
+    color: #a78bfa;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
 }
 
 .hero-heading {
@@ -684,6 +738,39 @@ body {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* Specific overrides for stats inside the NFT card */
+.nft-card-body .hero-stats {
+    gap: 30px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nft-card-body .stat-item {
+    padding: 0;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+}
+
+.nft-card-body .stat-item:not(:last-child)::after {
+    right: -15px; /* exactly half of 30px gap */
+}
+
+.nft-card-body .stat-number {
+    font-size: 32px; /* reduced from 40px */
+}
+
+.nft-card-body .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.nft-card-body .stat-label {
+    font-size: 11px;
 }
 
 /* ========================================
@@ -906,12 +993,13 @@ body {
 }
 
 .scroll-top-btn.visible {
-    opacity: 1;
+    opacity: 0.6;
     visibility: visible;
     transform: translateY(0);
 }
 
 .scroll-top-btn:hover {
+    opacity: 1;
     box-shadow: 0 8px 30px rgba(124, 58, 237, 0.7);
     transform: translateY(-3px);
 }
@@ -945,9 +1033,11 @@ body {
     box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
     z-index: 9999;
+    opacity: 0.6;
 }
 
 .sound-toggle-btn:hover {
+    opacity: 1;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5);
 }
