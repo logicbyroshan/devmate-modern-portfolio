@@ -404,18 +404,9 @@ body {
 
 .dino-icon {
     color: #a78bfa;
-    filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.5));
-}
-
-@property --btn-angle {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
-}
-
-@keyframes btnGlowSpin {
-    0% { --btn-angle: 0deg; }
-    100% { --btn-angle: 360deg; }
+@keyframes btnGlowSweep {
+    0% { background-position: 200% 50%; }
+    100% { background-position: -200% 50%; }
 }
 
 .btn-primary, .btn-secondary, .form-submit-btn {
@@ -442,14 +433,15 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Small moving flair expanding outside */
+/* Small sweeping linear flair expanding outside (Cross-browser safe) */
 .btn-primary::after, .btn-secondary::after, .form-submit-btn::after {
     content: '';
     position: absolute;
     inset: -3px;
     border-radius: 53px;
-    background: conic-gradient(from var(--btn-angle), transparent 0%, transparent 85%, #a78bfa 95%, #10b981 100%);
-    animation: btnGlowSpin 4s linear infinite;
+    background: linear-gradient(60deg, transparent 0%, transparent 40%, #a78bfa 48%, #10b981 52%, transparent 60%, transparent 100%);
+    background-size: 300% 100%;
+    animation: btnGlowSweep 4s linear infinite;
     filter: blur(4px);
     opacity: 0.9;
     z-index: -2;

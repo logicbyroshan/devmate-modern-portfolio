@@ -368,7 +368,8 @@
     }
 
     .hero-btn-group {
-        gap: 10px;
+        flex-direction: column;
+        gap: 12px;
         margin-bottom: 28px;
         align-items: stretch;
     }
